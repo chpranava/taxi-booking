@@ -19,9 +19,9 @@ stages {
             steps {
                sshagent(['project1']) {
                sh """
-                 scp -o StrictKeyChecking=no target/project1.jar ec2-user:172.31.86.208:/home/ec2-user/apache-tomcat-9.0.84/webapps/
-                 ssh ec2-user:172.31.86.208 /home/ec2-user/apache-tomcat-9.0.84/bin/shutdown.sh
-                 ssh ec2-user:172.31.86.208 /home/ec2-user/apache-tomcat-9.0.84/bin/startup.sh
+                 scp -o StrictKeyChecking=no target/project1.jar ec2-user:172.31.40.37:/home/ec2-user/apache-tomcat-9.0.84/webapps/
+                 ssh ec2-user:172.31.40.37 /home/ec2-user/apache-tomcat-9.0.84/bin/shutdown.sh
+                 ssh ec2-user:172.31.40.37 /home/ec2-user/apache-tomcat-9.0.84/bin/startup.sh
                 """
 }
             }
