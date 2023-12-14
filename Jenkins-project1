@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check-Out') {
+            steps {
+                git credentialsId: 'project-1', url: 'https://github.com/chpranava/taxi-booking.git'
+            }
+        }
+ stages {
+        stage('Build') {
+            steps {
+               sh "mvn clean package"
+               sh "mv target/.* target/project1.jar"
+            }
+        }
+stages {
+        stage('Deploy') {
+            steps {
+               sshagent(['project1']) {
+               sh """
+                 scp -o StrictKeyChecking=no target/project1.jar ec2-user:18.212.19.46:/home/ec2-user/apache-tomcat-9.0.84/webapps/
+                 ssh ec2-user:18.212.19.46 /home/ec2-user/apache-tomcat-9.0.84/bin/shutdown.sh
+                 ssh ec2-user:18.212.19.46 /home/ec2-user/apache-tomcat-9.0.84/bin/startup.sh
+                """
+}
+            }
+        }
+    }
+}
